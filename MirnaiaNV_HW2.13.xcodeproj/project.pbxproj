@@ -12,6 +12,7 @@
 		1E849A7E23B2AA8D00C2D2ED /* MirnaiaNV_HW2_13.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1E849A7C23B2AA8D00C2D2ED /* MirnaiaNV_HW2_13.xcdatamodeld */; };
 		1E849A8023B2AA8E00C2D2ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E849A7F23B2AA8E00C2D2ED /* Assets.xcassets */; };
 		1E849A8323B2AA8E00C2D2ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E849A8123B2AA8E00C2D2ED /* LaunchScreen.storyboard */; };
+		1E849A8B23B2C58300C2D2ED /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E849A8A23B2C58300C2D2ED /* TaskRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		1E849A7F23B2AA8E00C2D2ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E849A8223B2AA8E00C2D2ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E849A8423B2AA8E00C2D2ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E849A8A23B2C58300C2D2ED /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				1E849A8123B2AA8E00C2D2ED /* LaunchScreen.storyboard */,
 				1E849A8423B2AA8E00C2D2ED /* Info.plist */,
 				1E849A7C23B2AA8D00C2D2ED /* MirnaiaNV_HW2_13.xcdatamodeld */,
+				1E849A8A23B2C58300C2D2ED /* TaskRepository.swift */,
 			);
 			path = MirnaiaNV_HW2.13;
 			sourceTree = "<group>";
@@ -136,6 +139,7 @@
 			files = (
 				1E849A7823B2AA8D00C2D2ED /* TaskListViewController.swift in Sources */,
 				1E849A7E23B2AA8D00C2D2ED /* MirnaiaNV_HW2_13.xcdatamodeld in Sources */,
+				1E849A8B23B2C58300C2D2ED /* TaskRepository.swift in Sources */,
 				1E849A7423B2AA8D00C2D2ED /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

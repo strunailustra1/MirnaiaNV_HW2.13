@@ -11,7 +11,7 @@ import CoreData
 
 class TaskListViewController: UITableViewController {
     
-    private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let taskRepository = TaskRepository.instance
     private let cellID = "cell"
     private var tasks: [Task] = []
 
@@ -19,7 +19,7 @@ class TaskListViewController: UITableViewController {
         super.viewDidLoad()
         setupView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
-        fetchData()
+        tasks = taskRepository.fetchAll()
     }
 
     private func setupView() {
@@ -60,7 +60,10 @@ class TaskListViewController: UITableViewController {
     
     @objc private func addNewTask() {
         showAlert(title: "New task", message: "What do you want to do?", saveActionHandler: { (taskText) in
-            self.save(taskText)
+            guard let task = self.taskRepository.create(taskName: taskText) else { return }
+            self.tasks.append(task)
+            let cellIndex = IndexPath(row: self.tasks.count - 1, section: 0)
+            self.tableView.insertRows(at: [cellIndex], with: .automatic)
         })
     }
 }
@@ -102,57 +105,19 @@ extension TaskListViewController {
     }
 }
 
-// MARK: - Work with storage
-extension TaskListViewController {
-    private func save(_ taskName: String) {
-        guard let entityDescription = NSEntityDescription.entity(
-            forEntityName: "Task",
-            in: viewContext
-            )
-        else { return }
-        
-        let task = NSManagedObject(entity: entityDescription, insertInto: viewContext) as! Task
-        task.name = taskName
-        
-        do {
-            try viewContext.save()
-            tasks.append(task)
-            let cellIndex = IndexPath(row: self.tasks.count - 1, section: 0)
-            self.tableView.insertRows(at: [cellIndex], with: .automatic)
-        } catch let error {
-            print(error)
-        }
-    }
-    
-    private func fetchData() {
-        
-        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-        
-        do {
-            tasks = try viewContext.fetch(fetchRequest)
-        } catch let error {
-            print(error)
-        }
-    }
-}
-
 // MARK: - Table View Delegate
 extension TaskListViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         var contextualActions: [UIContextualAction] = []
 
         let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { (action, view, completionHandler) in
-            
             self.showAlert(
                 title: "Edit task",
                 message: "What do you want change?",
-                saveActionHandler: { (taskText) in
-                    self.tasks[indexPath.row].name = taskText
-                    self.tableView.reloadRows(at: [indexPath], with: .fade)
-                    do {
-                        try self.viewContext.save()
-                    } catch let error {
-                        print(error)
+                saveActionHandler: { (newTaskName) in
+                    let task = self.tasks[indexPath.row]
+                    if self.taskRepository.update(task: task, newName: newTaskName) {
+                        self.tableView.reloadRows(at: [indexPath], with: .fade)
                     }
                 },
                 textFieldConfigurationHandler: { (textField) in
@@ -162,15 +127,11 @@ extension TaskListViewController {
         })
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
-            
-            self.viewContext.delete(self.tasks[indexPath.row])
-            do {
-                try self.viewContext.save()
-            } catch let error {
-                print(error)
+            let task = self.tasks[indexPath.row]
+            if self.taskRepository.delete(task) {
+                self.tasks.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
             }
-            self.tasks.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
         }
         
         contextualActions.append(editAction)
