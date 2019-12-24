@@ -90,6 +90,7 @@ extension TaskListViewController {
             }
             
             self.save(task)
+            
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
@@ -130,6 +131,21 @@ extension TaskListViewController {
             tasks = try viewContext.fetch(fetchRequest)
         } catch let error {
             print(error)
+        }
+    }
+}
+
+extension TaskListViewController {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewContext.delete(tasks[indexPath.row])
+            do {
+                try viewContext.save()
+            } catch let error{
+                print(error)
+            }
+            tasks.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }
