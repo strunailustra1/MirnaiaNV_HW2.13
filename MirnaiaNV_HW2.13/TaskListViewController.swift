@@ -84,27 +84,6 @@ extension TaskListViewController {
     }
 }
 
-// MARK: - Alert controller
-extension TaskListViewController {
-    private func showAlert(title: String, message: String, saveActionHandler: @escaping ((String) -> Void), textFieldConfigurationHandler: ((UITextField) -> Void)? = nil) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
-            guard let task = alert.textFields?.first?.text, !task.isEmpty else {
-                print("The text field is empty")
-                return
-            }
-            saveActionHandler(task)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-        alert.addTextField(configurationHandler: textFieldConfigurationHandler)
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true)
-    }
-}
-
 // MARK: - Table View Delegate
 extension TaskListViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -141,5 +120,26 @@ extension TaskListViewController {
         swipeActionsConfiguration.performsFirstActionWithFullSwipe = false
         
         return swipeActionsConfiguration
+    }
+}
+
+// MARK: - Alert controller
+extension TaskListViewController {
+    private func showAlert(title: String, message: String, saveActionHandler: @escaping ((String) -> Void), textFieldConfigurationHandler: ((UITextField) -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+            guard let task = alert.textFields?.first?.text, !task.isEmpty else {
+                print("The text field is empty")
+                return
+            }
+            saveActionHandler(task)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        alert.addTextField(configurationHandler: textFieldConfigurationHandler)
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
 }
