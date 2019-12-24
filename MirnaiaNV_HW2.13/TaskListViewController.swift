@@ -59,7 +59,9 @@ class TaskListViewController: UITableViewController {
     }
     
     @objc private func addNewTask() {
-        showAlert(title: "New task", message: "What do you want to do?")
+        showAlert(title: "New task", message: "What do you want to do?", saveActionHandler: { (taskText) in
+            self.save(taskText)
+        })
     }
 }
 
@@ -81,20 +83,19 @@ extension TaskListViewController {
 
 // MARK: - Alert controller
 extension TaskListViewController {
-    private func showAlert(title: String, message: String) {
+    private func showAlert(title: String, message: String, saveActionHandler: @escaping ((String) -> Void), textFieldConfigurationHandler: ((UITextField) -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
         let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
             guard let task = alert.textFields?.first?.text, !task.isEmpty else {
                 print("The text field is empty")
                 return
             }
-            
-            self.save(task)
-            
+            saveActionHandler(task)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-        alert.addTextField()
+        alert.addTextField(configurationHandler: textFieldConfigurationHandler)
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
         present(alert, animated: true)
@@ -135,27 +136,29 @@ extension TaskListViewController {
     }
 }
 
+// MARK: - Table View Delegate
 extension TaskListViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         var contextualActions: [UIContextualAction] = []
 
         let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { (action, view, completionHandler) in
             
-            let alert = UIAlertController(title: "", message: "Edit task", preferredStyle: .alert)
-            alert.addTextField(configurationHandler: { (textField) in
-                textField.text = self.tasks[indexPath.row].name
-            })
-            alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
-                self.tasks[indexPath.row].name = alert.textFields!.first!.text!
-                self.tableView.reloadRows(at: [indexPath], with: .fade)
-                do {
-                    try self.viewContext.save()
-                } catch let error {
-                    print(error)
+            self.showAlert(
+                title: "Edit task",
+                message: "What do you want change?",
+                saveActionHandler: { (taskText) in
+                    self.tasks[indexPath.row].name = taskText
+                    self.tableView.reloadRows(at: [indexPath], with: .fade)
+                    do {
+                        try self.viewContext.save()
+                    } catch let error {
+                        print(error)
+                    }
+                },
+                textFieldConfigurationHandler: { (textField) in
+                    textField.text = self.tasks[indexPath.row].name
                 }
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(alert, animated: false)
+            )
         })
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
