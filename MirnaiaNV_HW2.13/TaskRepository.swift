@@ -6,14 +6,13 @@
 //  Copyright © 2019 Наталья Мирная. All rights reserved.
 //
 
-import UIKit
 import CoreData
 
 class TaskRepository {
     
     static let instance = TaskRepository()
     
-    private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let viewContext = StorageManager.instance.persistentContainer.viewContext
     
     func fetchAll() -> [Task] {
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
