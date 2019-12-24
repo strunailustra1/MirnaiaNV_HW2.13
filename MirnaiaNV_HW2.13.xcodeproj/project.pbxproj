@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E849A7423B2AA8D00C2D2ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E849A7323B2AA8D00C2D2ED /* AppDelegate.swift */; };
-		1E849A7623B2AA8D00C2D2ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E849A7523B2AA8D00C2D2ED /* SceneDelegate.swift */; };
-		1E849A7823B2AA8D00C2D2ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E849A7723B2AA8D00C2D2ED /* ViewController.swift */; };
-		1E849A7B23B2AA8D00C2D2ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E849A7923B2AA8D00C2D2ED /* Main.storyboard */; };
+		1E849A7823B2AA8D00C2D2ED /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E849A7723B2AA8D00C2D2ED /* TaskListViewController.swift */; };
 		1E849A7E23B2AA8D00C2D2ED /* MirnaiaNV_HW2_13.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1E849A7C23B2AA8D00C2D2ED /* MirnaiaNV_HW2_13.xcdatamodeld */; };
 		1E849A8023B2AA8E00C2D2ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E849A7F23B2AA8E00C2D2ED /* Assets.xcassets */; };
 		1E849A8323B2AA8E00C2D2ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E849A8123B2AA8E00C2D2ED /* LaunchScreen.storyboard */; };
@@ -19,9 +17,7 @@
 /* Begin PBXFileReference section */
 		1E849A7023B2AA8D00C2D2ED /* MirnaiaNV_HW2.13.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MirnaiaNV_HW2.13.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E849A7323B2AA8D00C2D2ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1E849A7523B2AA8D00C2D2ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1E849A7723B2AA8D00C2D2ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1E849A7A23B2AA8D00C2D2ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1E849A7723B2AA8D00C2D2ED /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		1E849A7D23B2AA8D00C2D2ED /* MirnaiaNV_HW2_13.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MirnaiaNV_HW2_13.xcdatamodel; sourceTree = "<group>"; };
 		1E849A7F23B2AA8E00C2D2ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E849A8223B2AA8E00C2D2ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -59,9 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				1E849A7323B2AA8D00C2D2ED /* AppDelegate.swift */,
-				1E849A7523B2AA8D00C2D2ED /* SceneDelegate.swift */,
-				1E849A7723B2AA8D00C2D2ED /* ViewController.swift */,
-				1E849A7923B2AA8D00C2D2ED /* Main.storyboard */,
+				1E849A7723B2AA8D00C2D2ED /* TaskListViewController.swift */,
 				1E849A7F23B2AA8E00C2D2ED /* Assets.xcassets */,
 				1E849A8123B2AA8E00C2D2ED /* LaunchScreen.storyboard */,
 				1E849A8423B2AA8E00C2D2ED /* Info.plist */,
@@ -130,7 +124,6 @@
 			files = (
 				1E849A8323B2AA8E00C2D2ED /* LaunchScreen.storyboard in Resources */,
 				1E849A8023B2AA8E00C2D2ED /* Assets.xcassets in Resources */,
-				1E849A7B23B2AA8D00C2D2ED /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,24 +134,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E849A7823B2AA8D00C2D2ED /* ViewController.swift in Sources */,
+				1E849A7823B2AA8D00C2D2ED /* TaskListViewController.swift in Sources */,
 				1E849A7E23B2AA8D00C2D2ED /* MirnaiaNV_HW2_13.xcdatamodeld in Sources */,
 				1E849A7423B2AA8D00C2D2ED /* AppDelegate.swift in Sources */,
-				1E849A7623B2AA8D00C2D2ED /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1E849A7923B2AA8D00C2D2ED /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1E849A7A23B2AA8D00C2D2ED /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1E849A8123B2AA8E00C2D2ED /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
