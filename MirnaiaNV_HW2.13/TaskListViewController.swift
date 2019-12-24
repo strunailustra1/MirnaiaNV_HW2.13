@@ -136,16 +136,46 @@ extension TaskListViewController {
 }
 
 extension TaskListViewController {
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            viewContext.delete(tasks[indexPath.row])
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        var contextualActions: [UIContextualAction] = []
+
+        let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { (action, view, completionHandler) in
+            
+            let alert = UIAlertController(title: "", message: "Edit task", preferredStyle: .alert)
+            alert.addTextField(configurationHandler: { (textField) in
+                textField.text = self.tasks[indexPath.row].name
+            })
+            alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
+                self.tasks[indexPath.row].name = alert.textFields!.first!.text!
+                self.tableView.reloadRows(at: [indexPath], with: .fade)
+                do {
+                    try self.viewContext.save()
+                } catch let error {
+                    print(error)
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: false)
+        })
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            
+            self.viewContext.delete(self.tasks[indexPath.row])
             do {
-                try viewContext.save()
-            } catch let error{
+                try self.viewContext.save()
+            } catch let error {
                 print(error)
             }
-            tasks.remove(at: indexPath.row)
+            self.tasks.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+        
+        contextualActions.append(editAction)
+        contextualActions.append(deleteAction)
+        
+        let swipeActionsConfiguration = UISwipeActionsConfiguration(actions: contextualActions)
+        swipeActionsConfiguration.performsFirstActionWithFullSwipe = false
+        
+        return swipeActionsConfiguration
     }
 }
